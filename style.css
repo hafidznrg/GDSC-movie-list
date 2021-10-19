@@ -1,0 +1,48 @@
+body{
+    background-color: aqua;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.header{
+    margin: 50px 0;
+}
+
+#content{
+    width: 80%;
+    text-align: center;
+    background-color: white;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.movie-img{
+    background-color: aquamarine;
+    width: 250px;
+    height: 280px;
+    border-radius: 5px;
+    margin: 20px 0;
+}
+
+.movie-item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 300px;
+    min-height: 400px;
+    background-color: beige;
+    margin: 20px;
+    border-radius: 20px;
+}
+
+.movie-item .movie-title,
+.movie-item .movie-desc{
+    margin: 5px 0;
+}

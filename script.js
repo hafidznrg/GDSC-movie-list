@@ -1,5 +1,4 @@
 var content = document.getElementById("content");
-var span = document.getElementsByClassName("close")[0];
 
 let rawMovies = fetch('movie.json').then(response => {
     return response.json();
@@ -11,25 +10,58 @@ let rawMovies = fetch('movie.json').then(response => {
 });
 
 function modalView(item){
-    console.log(item);
+    // console.log(item);
     let title = item.nama;
+    let poster = item.poster;
     let tahun = item.tahun;
     let desc = item.desc;
     let genre = item.genre;
     let rating = item.rating;
     let duration = item.duration;
+    let director = item.director;
     var modal = document.getElementById("myModal");
-    var item = document.createElement("div");
-    item.className = "modal-content";
-    var close_btn = document.createElement("span");
-    close_btn.className = "close";
-    close_btn.innerHTML = "&times;";
-    var modal_title = document.createElement("p");
-    modal_title.className = "modal-title";
+    modal.innerHTML = "";
+    var modal_content = document.createElement("div");
+    modal_content.className = "modal-content";
+    // Poster image
+    var modal_poster_img = document.createElement("img");
+    modal_poster_img.src = poster;
+    var modal_poster = document.createElement("div");
+    modal_poster.className = "movie-image";
+    modal_poster.appendChild(modal_poster_img);
+    modal_content.appendChild(modal_poster);
+
+    // Movie Detail
+    var modal_title = document.createElement("h3");
     modal_title.innerHTML = title;
-    item.appendChild(close_btn);
-    item.appendChild(modal_title);
-    modal.appendChild(item);
+    modal_title.className = "modal-title";
+    var modal_desc = document.createElement("p");
+    modal_desc.innerHTML = desc;
+    var modal_tahun = document.createElement("p");
+    modal_tahun.innerHTML = "Year : " + tahun;
+    var modal_genre = document.createElement("p");
+    modal_genre.innerHTML = "Genre : " + genre;
+    var modal_rating = document.createElement("p");
+    modal_rating.innerHTML = "Rating : " + rating;
+    var modal_duration = document.createElement("p");
+    modal_duration.innerHTML = "Duration : " + duration;
+    var modal_director = document.createElement("p");
+    modal_director.innerHTML = "Directed by " + director;
+
+    var movie_detail = document.createElement("div");
+    movie_detail.className = "movie-detail";
+    movie_detail.appendChild(modal_title);
+    movie_detail.appendChild(modal_desc);
+    movie_detail.appendChild(modal_tahun);
+    movie_detail.appendChild(modal_genre);
+    movie_detail.appendChild(modal_rating);
+    movie_detail.appendChild(modal_duration);
+    movie_detail.appendChild(modal_director);
+    modal_content.appendChild(movie_detail);
+    modal.appendChild(modal_content);
+
+
+    modal.style.display = "block";
 }
 
 function filterMovies(arr, query) {
@@ -44,6 +76,9 @@ function filterMovies(arr, query) {
                 item.onclick = function(){ modalView(el)};
                 let itemImg = document.createElement("div");
                 itemImg.className = "movie-img";
+                let itemImage = document.createElement("img");
+                itemImage.src = el.poster;
+                itemImg.appendChild(itemImage);
                 let itemTitle = document.createElement("h3");
                 itemTitle.innerHTML = el.nama;
                 itemTitle.className = "movie-title";
@@ -67,7 +102,7 @@ function filterMovies(arr, query) {
 
         if (count === 0){
             let notFound = document.createElement("h3");
-            notFound.innerHTML = "Maaf, film yang Anda cari tidak ada."
+            notFound.innerHTML = "Sorry, the movie doesn't exist in here."
             content.appendChild(notFound);
         }
     })
@@ -83,14 +118,12 @@ search.onkeyup = function(){
     filterMovies(rawMovies, query);
 }
 
-// // When the user clicks on <span> (x), close the modal
-// span.onclick = function() {
-//   modal.style.display = "none";
-// }
+var modal = document.getElementById("myModal");
 
-// // When the user clicks anywhere outside of the modal, close it
-// window.onclick = function(event) {
-//   if (event.target == modal) {
-//     modal.style.display = "none";
-//   }
-// }
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+        modal.innerHTML = "";
+    }
+}

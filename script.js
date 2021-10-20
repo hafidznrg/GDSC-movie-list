@@ -1,6 +1,6 @@
 var content = document.getElementById("content");
 
-let rawMovies = fetch('movie.json').then(response => {
+let rawMovies = fetch('./movie.json').then(response => {
     return response.json();
 }).then(data => {
     // console.log(data);
